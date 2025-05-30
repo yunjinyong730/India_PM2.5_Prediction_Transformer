@@ -111,7 +111,8 @@ PM2.5는 계절성과 시간대에 따라 고농도 패턴이 반복되며, 복�
    <br>
 ## 최종 성능 <br>
  <br>
-![Figure_1](https://github.com/user-attachments/assets/d2a20fd6-5d55-49b2-9e86-34b7d6728b76) <br>
+![Figure_1](https://github.com/user-attachments/assets/673fb44d-8c32-4cde-a86f-cc6bc97e2bda)
+
 <br>
   • Test Loss: 0.0276 (매우 낮음) <br>
   • Test MAE: 0.1086 <br>
