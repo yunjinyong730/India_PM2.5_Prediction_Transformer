@@ -109,11 +109,10 @@ PM2.5는 계절성과 시간대에 따라 고농도 패턴이 반복되며, 복�
     o ReduceLROnPlateau가 효과적으로 작동 <br>
  <br>
    <br>
-## 최종 성능 <br>
- <br>
-![Figure_1](https://github.com/user-attachments/assets/673fb44d-8c32-4cde-a86f-cc6bc97e2bda)
+   
+## 최종 성능 
+![Figure_1](https://github.com/user-attachments/assets/f842ee90-e895-4247-b3ac-113aff334b6c)
 
-<br>
   • Test Loss: 0.0276 (매우 낮음) <br>
   • Test MAE: 0.1086 <br>
   • 정규화된 값 기준이므로, 실제 PM2.5 단위로는 약 5.36 μg/m³의 평균 절대 오차 (평균 
