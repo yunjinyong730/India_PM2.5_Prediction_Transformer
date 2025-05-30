@@ -33,10 +33,9 @@ PM2.5는 계절성과 시간대에 따라 고농도 패턴이 반복되며, 복�
 시계열 데이터(인도의 대기질 데이터)를 사용하여 PM2.5 농도를 예측하는 Transformer 기반 딥러
 닝 모델. Transformer는 원래 NLP를 위해 개발되었지만, 시계열 예측에도 뛰어난 성능을 보임
 
-2. 데이터 전처리
-def load_and_preprocess_data(file_path):
-주요 특징:
-• 시간 정보를 datetime 형식으로 변환
+2. 데이터 전처리 <br>
+주요 특징: <br>
+• 시간 정보를 datetime 형식으로 변환 <br>
 • 요일(0-6)과 연중 일수(1-365)를 추가 특성으로 생성 <br>
     2 – 1. 주기적 특성 인코딩 <br>
         중요한 이유: <br>
@@ -52,69 +51,69 @@ def load_and_preprocess_data(file_path):
 3. Transformer 핵심 구성 요소 <br>
     3-1. Positional Encoding 클래스 <br>
         수식 설명: <br>
-        • 각 위치와 차원에 대해 고유한 인코딩 생성
-        • 10000은 주기를 결정하는 상수 (큰 값일수록 긴 주기)
-        왜 필요한가?
-        • RNN과 달리 Transformer는 순서 정보가 없음
-        • Positional Encoding으로 시간 순서 정보를 추가함
-    3-2. Multi-Head Attention 클래스
-        핵심 개념:
-        • Query, Key, Value 행렬을 생성
-        • 여러 개의 attention head로 분할
-        • 각 head는 서로 다른 관계를 학습
+        • 각 위치와 차원에 대해 고유한 인코딩 생성 <br>
+        • 10000은 주기를 결정하는 상수 (큰 값일수록 긴 주기) <br>
+        왜 필요한가? <br>
+        • RNN과 달리 Transformer는 순서 정보가 없음 <br> 
+        • Positional Encoding으로 시간 순서 정보를 추가함 <br>
+    3-2. Multi-Head Attention 클래스 <br>
+        핵심 개념: <br>
+        • Query, Key, Value 행렬을 생성 <br>
+        • 여러 개의 attention head로 분할 <br>
+        • 각 head는 서로 다른 관계를 학습 <br>
+    <br>
+    3-3. Scaled Dot-Product Attention <br>
+         Attention(Q,K,V) = softmax(QK^T/√dk)V <br>
+         √dk로 나누는 이유: gradient vanishing 방지 <br>
+         각 시점이 다른 시점들과 얼마나 관련있는지 계산 <br>
     
-    3-3. Scaled Dot-Product Attention
-         Attention(Q,K,V) = softmax(QK^T/√dk)V
-         √dk로 나누는 이유: gradient vanishing 방지
-         각 시점이 다른 시점들과 얼마나 관련있는지 계산
-    
-    3-4. Transformer Block
-        구성 요소:
-        1. Multi-Head Attention: 시계열 패턴 학습
-        2. Feed Forward Network: 비선형 변환
-        3. Residual Connection: 학습 안정성
-        4. Layer Normalization: 각 층의 출력 정규화
-        5. Dropout: 과적합 방지
-
-
-4. 전체 Transformer 모델 
-    4-1. 모델 구조
-        주요 하이퍼파라미터:
-        • d_model=64: 임베딩 차원
-        • num_heads=4: Attention head 개수
-        • dff=256: Feed forward 은닉층 크기
-        • num_blocks=2: Transformer 블록 개수
-        • pred_length=1: 예측할 시간 단계 수
-
-5. 학습 프로세스
-    5-1. 데이터 준비
-        정규화의 중요성:
-        • 각 특성의 스케일을 통일
-        • 학습 속도 향상 및 안정성 확보
-        • 나중에 역정규화로 실제 값 복원
-    5-2. 학습 최적화
-        콜백 전략:
-        • Early Stopping: 과적합 방지, 최적 가중치 복원
-        • Learning Rate Reduction: 학습이 정체될 때 학습률 감소
-
-
-6. 학습 과정 분석
-    학습 수렴 패턴
-    • 초기 학습 (Epoch 1-10)
-    o Loss: 0.1013 → 0.0461 (54.5% 감소)
-    o MAE: 0.2208 → 0.1462 (33.8% 감소)
-    o 매우 빠른 수렴 속도를 보임
-    • Learning Rate 조정
-    o Epoch 11: 0.001 → 0.0005 (첫 번째 감소)
-    o Epoch 22: 0.0005 → 0.00025 (두 번째 감소)
-    o ReduceLROnPlateau가 효과적으로 작동
-
-   
-## 최종 성능
-
-![Figure_1](https://github.com/user-attachments/assets/d2a20fd6-5d55-49b2-9e86-34b7d6728b76)
-
-  • Test Loss: 0.0276 (매우 낮음)
-  • Test MAE: 0.1086
-  • 정규화된 값 기준이므로, 실제 PM2.5 단위로는 약 5.36 μg/m³의 평균 절대 오차 (평균
+    3-4. Transformer Block <br>
+        구성 요소: <br>
+        1. Multi-Head Attention: 시계열 패턴 학습 <br>
+        2. Feed Forward Network: 비선형 변환 <br>
+        3. Residual Connection: 학습 안정성 <br>
+        4. Layer Normalization: 각 층의 출력 정규화 <br>
+        5. Dropout: 과적합 방지 <br>
+<br>
+<br>
+4. 전체 Transformer 모델  <br>
+    4-1. 모델 구조 <br>
+        주요 하이퍼파라미터: <br>
+        • d_model=64: 임베딩 차원 <br>
+        • num_heads=4: Attention head 개수 <br>
+        • dff=256: Feed forward 은닉층 크기 <br>
+        • num_blocks=2: Transformer 블록 개수 <br>
+        • pred_length=1: 예측할 시간 단계 수 <br>
+<br>
+5. 학습 프로세스 <br>
+    5-1. 데이터 준비 <br>
+        정규화의 중요성: <br> 
+        • 각 특성의 스케일을 통일 <br>
+        • 학습 속도 향상 및 안정성 확보 <br>
+        • 나중에 역정규화로 실제 값 복원 <br>
+    5-2. 학습 최적화 <br>
+        콜백 전략: <br>
+        • Early Stopping: 과적합 방지, 최적 가중치 복원 <br>
+        • Learning Rate Reduction: 학습이 정체될 때 학습률 감소 <br>
+<br>
+<br>
+6. 학습 과정 분석 <br>
+    학습 수렴 패턴 <br>
+    • 초기 학습 (Epoch 1-10) <br>
+    o Loss: 0.1013 → 0.0461 (54.5% 감소) <br>
+    o MAE: 0.2208 → 0.1462 (33.8% 감소) <br>
+    o 매우 빠른 수렴 속도를 보임 <br>
+    • Learning Rate 조정 <br>
+    o Epoch 11: 0.001 → 0.0005 (첫 번째 감소) <br>
+    o Epoch 22: 0.0005 → 0.00025 (두 번째 감소) <br>
+    o ReduceLROnPlateau가 효과적으로 작동 <br>
+ <br>
+   <br>
+## 최종 성능 <br>
+ <br>
+![Figure_1](https://github.com/user-attachments/assets/d2a20fd6-5d55-49b2-9e86-34b7d6728b76) <br>
+<br>
+  • Test Loss: 0.0276 (매우 낮음) <br>
+  • Test MAE: 0.1086 <br>
+  • 정규화된 값 기준이므로, 실제 PM2.5 단위로는 약 5.36 μg/m³의 평균 절대 오차 (평균 
   PM2.5가 49.3이므로, 0.1086 × 49.3 ≈ 5.36)
