@@ -61,7 +61,7 @@ PM2.5는 계절성과 시간대에 따라 고농도 패턴이 반복되며, 복�
         • Query, Key, Value 행렬을 생성 
         • 여러 개의 attention head로 분할 
         • 각 head는 서로 다른 관계를 학습
-    <br>
+    
     3-3. Scaled Dot-Product Attention 
          Attention(Q,K,V) = softmax(QK^T/√dk)V 
          √dk로 나누는 이유: gradient vanishing 방지 
@@ -74,7 +74,7 @@ PM2.5는 계절성과 시간대에 따라 고농도 패턴이 반복되며, 복�
         3. Residual Connection: 학습 안정성 
         4. Layer Normalization: 각 층의 출력 정규화 
         5. Dropout: 과적합 방지 
-<br>
+
 <br>
 
 #### 4. 전체 Transformer 모델  <br>
