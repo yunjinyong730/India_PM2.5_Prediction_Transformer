@@ -47,6 +47,7 @@ PM2.5는 계절성과 시간대에 따라 고농도 패턴이 반복되며, 복�
         • 예: seq_length=24면 과거 24시간 데이터로 다음 시간을 예측 <br>
         • target은 PM2.5 값만 추출 (인덱스 0) <br>
 <br>
+
 #### 3. Transformer 핵심 구성 요소 <br>
     3-1. Positional Encoding 클래스 <br>
         수식 설명: <br>
